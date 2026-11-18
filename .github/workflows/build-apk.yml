@@ -1,3 +1,4 @@
+
 name: Build Appsheet Lab APK
 
 on:
@@ -23,14 +24,14 @@ jobs:
           java-version: 21
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
-          commandline-tools-version: "9477386"
+          packages: platform-tools
 
       - name: Extract project ZIP
         run: |
           unzip -o Appsheet_Lab_Lengkap.zip
-          ls -la
+          ls -la appsheet_lab
 
       - name: Install dependencies
         working-directory: appsheet_lab
@@ -46,6 +47,11 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
         run: npm run build
+
+      - name: Prepare Android folder
+        working-directory: appsheet_lab
+        run: |
+          rmdir android 2>/dev/null || true
 
       - name: Generate Android project
         working-directory: appsheet_lab
