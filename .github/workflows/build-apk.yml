@@ -1,4 +1,3 @@
-
 name: Build Appsheet Lab APK
 
 on:
@@ -25,6 +24,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          commandline-tools-version: "9477386"
 
       - name: Extract project ZIP
         run: |
@@ -63,4 +64,3 @@ jobs:
         with:
           name: appsheet-lab-debug-apk
           path: appsheet_lab/android/app/build/outputs/apk/debug/app-debug.apk
-          
